@@ -10,12 +10,14 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+
+
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/angularpro",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "main": "src/main.single-spa.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -27,7 +29,13 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "Angularpro",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "http://localhost:4200/"
           },
           "configurations": {
             "production": {
@@ -43,7 +51,7 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "none"
             },
             "development": {
               "buildOptimizer": false,
@@ -51,13 +59,17 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "outputHashing": "none"
             }
           },
           "defaultConfiguration": "production"
         },
+
+
+
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "configurations": {
             "production": {
               "browserTarget": "Angularpro:build:production"
@@ -93,6 +105,126 @@
           }
         }
       }
+    },
+
+
+
+
+
+    "MainAngularpro": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+
+
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/Mainangularpro",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.single.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          
+    
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "outputHashing": "none"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+
+
+
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {"port":63932},
+          "configurations": {
+            "production": {
+              "browserTarget": "MainAngularpro:build:production"
+            },
+            "development": {
+              "browserTarget": "MainAngularpro:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "MainAngularpro:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+  },
+  "cli": {
+    "analytics": "829f185a-7be1-47e3-b292-71a66cfda187"
   }
 }
