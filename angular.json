@@ -66,10 +66,11 @@
           "defaultConfiguration": "production"
         },
 
-
-
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
+          "options":{
+              "port": 4201
+            },
           "configurations": {
             "production": {
               "browserTarget": "Angularpro:build:production"
@@ -174,7 +175,7 @@
 
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {"port":63932},
+          "options": {"port":4202},
           "configurations": {
             "production": {
               "browserTarget": "MainAngularpro:build:production"
