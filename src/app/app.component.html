@@ -235,7 +235,9 @@
         {{DataFromApp1 ? DataFromApp1 : 'No Data'}}
         </h2>
 
-   
+        <button (click)="updateState()">Update State</button>
+        <input type="text" [(ngModel)]="valueState">
+
 
       </div>
       <div class="right-side">
