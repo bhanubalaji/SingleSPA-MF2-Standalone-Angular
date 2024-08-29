@@ -229,14 +229,22 @@
         <p>Congratulations! Your app is running. 🎉</p>
         <p>This is a microfrontent project using Angular and Single-Spa</p>
         
-      <h2>Data from app 1: 
+     <h2> 1, Data from app 1( using custom Event ): 
       
 
         {{DataFromApp1 ? DataFromApp1 : 'No Data'}}
         </h2>
+     <br>
+     <br>
+     <br>
+        <h2>2, Data from app 1 (using Event Bus): 
+      
 
+          {{Datacustombus ? Datacustombus : 'No Data'}}
+          </h2>
+<!-- 
         <button (click)="updateState()">Update State</button>
-        <input type="text" [(ngModel)]="valueState">
+        <input type="text" [(ngModel)]="valueState"> -->
 
 
       </div>

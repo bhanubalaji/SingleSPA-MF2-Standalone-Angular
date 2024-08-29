@@ -13,43 +13,50 @@ import { selectSomeState } from 'shared-state-mylibrary'
 })
 export class AppComponent implements OnInit {
   title = 'angular-project-MF2';
-  DataFromApp1:any='';
-  valueState:any;
+  DataFromApp1: any = '';
+  valueState: any;
   someState$: Observable<string> | undefined;
-constructor(
-  private cdr:ChangeDetectorRef,
-  private store: Store<{ someFeature: State }>
-) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private store: Store<{ someFeature: State }>
+  ) { }
 
-
+  Datacustombus: any
   ngOnInit(): void {
-    // In Angular application 2
-    window.addEventListener('app1Event', (event:any) => {
+    //click Custom Events
+    window.addEventListener('app1Event', (event: any) => {
       console.log('Received event from App 1:', event?.detail);
-      this.DataFromApp1=event?.detail?.message
+      this.DataFromApp1 = event?.detail?.message
       console.log(this.DataFromApp1)
       this.cdr.detectChanges();
-      // Handle the event or update the UI
+
+      // custom bus
+      window.addEventListener('message', (event) => {
+        if (event.origin !== 'http://localhost:9000') {
+          return; // Ignore messages from unexpected origins
+        }
+        const message = event.data?.message;
+        if (message) {
+          console.log('Received message---------------:', message);
+          this.Datacustombus = message
+          this.cdr.detectChanges();
+        }
+      });
     });
-    
-  this.someState$ = this.store.pipe(select(selectSomeState));
-this.someState$?.subscribe((state)=>{console.log(state)})
 
-    // this.someState$.subscribe(
-    //   state => {
-    //     console.log('Received state in MF2:', state);
-    //     if (state !== undefined) {
-    //       console.log('Received state in MF2:', state);
-    //       // Handle the state update here
-    //     } else {
-    //       console.error('State is undefined');
-    //     }
-    //   },
-    //   error => console.error('Error subscribing to someState$: ', error)
-    // );
-      }
 
-      updateState() {
-        this.store.dispatch(updateSomeState({ newValue: this.valueState }));
-      }
+
+
+  }
+
+
+
+
+
+  //   this.someState$ = this.store.pipe(select(selectSomeState));
+  // this.someState$?.subscribe((state)=>{console.log(state)})
 }
+
+// updateState() {
+//   this.store.dispatch(updateSomeState({ newValue: this.valueState }));
+// }
