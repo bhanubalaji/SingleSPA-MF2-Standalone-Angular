@@ -23,26 +23,29 @@ export class AppComponent implements OnInit {
 
   Datacustombus: any
   ngOnInit(): void {
-    //click Custom Events
-    window.addEventListener('app1Event', (event: any) => {
-      console.log('Received event from App 1:', event?.detail);
-      this.DataFromApp1 = event?.detail?.message
-      console.log(this.DataFromApp1)
-      this.cdr.detectChanges();
+      console.log('state initializedMF2');
 
-      // custom bus
-      window.addEventListener('message', (event) => {
-        if (event.origin !== 'http://localhost:9000') {
-          return; // Ignore messages from unexpected origins
-        }
-        const message = event.data?.message;
-        if (message) {
-          console.log('Received message---------------:', message);
-          this.Datacustombus = message
-          this.cdr.detectChanges();
-        }
+      //click Custom Events
+      window.addEventListener('app1Event', (event: any) => {
+        console.log('Received event from App 1:', event?.detail);
+        this.DataFromApp1 = event?.detail?.message
+        console.log(this.DataFromApp1)
+        this.cdr.detectChanges();
+  
+        // custom bus
+        window.addEventListener('message', (event) => {
+          if (event.origin !== 'http://localhost:3000') {
+            return; // Ignore messages from unexpected origins
+          }
+          const message = event.data?.message;
+          if (message) {
+            console.log('Received message---------------:', message);
+            this.Datacustombus = message
+            this.cdr.detectChanges();
+          }
+        });
       });
-    });
+ 
 
 
 
